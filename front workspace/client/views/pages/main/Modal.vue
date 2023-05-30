@@ -47,7 +47,7 @@
   }
   
   .modal-content {
-    background-color: white;
+    background-color: black;
     /* padding: 20px; */
     border-radius: 5px;
     border: 1px solid black;

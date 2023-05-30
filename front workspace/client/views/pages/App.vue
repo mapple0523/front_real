@@ -1,32 +1,10 @@
 <template>
   <div v-cloak>
-    <Header></Header>
-    <div class="navhead">      
-      <svg
-        v-on:click="hide"
-        xmlns="http://www.w3.org/2000/svg"
-        height="30"
-        viewBox="0 96 960 960"
-        width="30"
-      >
-        <path
-          d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"
-        />
-      </svg>
-    </div>
+    <!-- <Header></Header> -->
+    <!-- <div class="navhead">
+    </div> -->
     <!-- nav inner-->
     <div class="nav" v-bind:style="{ display: displayStyle }">
-      <svg
-        v-on:click="hide"
-        xmlns="http://www.w3.org/2000/svg"
-        height="30"
-        viewBox="0 96 960 960"
-        width="30"
-      >
-        <path
-          d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
-        />
-      </svg>
       <div><Menu></Menu></div>
     </div>
     <div :class="divClass">
@@ -37,7 +15,7 @@
 
 <script>
 import Modal from "../pages/main/Modal.vue";
-import Header from "../layout/Header.vue";
+// import Header from "../layout/Header.vue";
 import Menu from "../layout/Menu.vue";
 import Footer from "../layout/Footer.vue";
 
@@ -47,11 +25,11 @@ const App = {
       modalVisible: false,
       showDiv: false,
       displayStyle: "block",
-      divClass: 'mainwrap expand'
+      divClass: "mainwrap expand",
     };
   },
   methods: {
-   showModal() {
+    showModal() {
       this.modalVisible = true;
     },
     closeModal() {
@@ -66,7 +44,7 @@ const App = {
   watch: {},
   computed: {},
   components: {
-    Header: Header,
+    // Header: Header,
     Menu: Menu,
     Footer: Footer,
     Modal: Modal,
@@ -85,12 +63,14 @@ export default App;
 }
 
 .mainwrap {
-  margin: 20px 0px;
   padding: 1.5rem;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .mainwrap.expand {
   width: calc(100% - 300px);
-  margin-left: 300px;
+  margin-left: 150px;
+  margin-top: 150px;
 }
 </style>

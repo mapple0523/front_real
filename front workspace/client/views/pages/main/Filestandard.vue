@@ -6,12 +6,12 @@
       </li>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content" style="background-color: white;">
       <div class="flex m-b"></div>
       <div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index" class="name m-b">
         <div v-show="tab.content2">
-          <modal :visible="modalVisible" @close="closeModal">
-            <div class="modal_body">
+          <modal :visible="modalVisible" @close="closeModal" >
+            <div class="modal_body" style="background-color: white;">
               <h2 style="margin-bottom: 1rem">Success</h2>
 
               <button class="button" @click="closeModal">continue</button>
@@ -21,16 +21,14 @@
             <table class="content2 m-b">
               <thead>
                 <tr>
-                  <th style="width: 40%">
-                    <div class="header-text center-text"> 칼럼 원본명 <div class="arrow-right"></div>
+                  <th style="width: 50%">
+                    <div class="header-text center-text" style="text-align: center; margin-left: 10%;"> 칼럼 원본명 <div
+                        class="arrow-right" style="margin-right: 10%;"></div>
                     </div>
                   </th>
-                  <th style="width: 40%">
-                    <div class="header-text center-text">표준화 칼럼 <div class="arrow-right"></div>
+                  <th style="width: 50%">
+                    <div class="header-text center-text" style="text-align: center; margin-left: 30%;">표준화 칼럼
                     </div>
-                  </th>
-                  <th style="width: 20% ">
-                    데이터 타입
                   </th>
                 </tr>
               </thead>
@@ -38,33 +36,25 @@
                 <tr v-for="(column, index) in columns" :key="index">
                   <td>
                     <div class="flex-center">
-                      <label class="input-file-button flex" :for="`input-${index}`" style="margin-left: 1rem">
+                      <label class="input-file-button flex" :for="`input-${index}`" style="width: 180px; height: 35px; margin-right: 30px;">
                         {{ column.name }}
                       </label>
+                      <div class="arrow-right" style=" margin-right: 30px;"></div>
                     </div>
                   </td>
-                  <td>
+                  <td style=" transform: translateX(30px);">
                     <div class="flex-center">
                       <label class="input-file-button flex" :for="`input-${index}`">
-                        {{ column.name }}<input type="text" :id="`input-${index}`" style="margin-left: 1rem" /><img
-                          class="img-s" src="../../../resources/image/search.png" alt="" />
+                        <input type="text" :id="`input-${index}`" :value="column.name" /><img class="img-s"
+                          src="../../../resources/image/search.png" alt="" />
                       </label>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="bd" @click="showTypeSelect = !showTypeSelect">{{ column.type }}</p>
-                    <div v-if="showTypeSelect" class="popup">
-                      <select v-model="column.type">
-                        <option>Number</option>
-                        <option>String</option>
-                      </select>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="flex-end"><button @click="showModal">저장</button></div>
+          <div class="flex-end"><button class="save-button" @click="showModal">저장</button></div>
         </div>
       </div>
     </div>
@@ -150,7 +140,7 @@ label {
 
 .input-file-button {
   padding: 5px 10px;
-  border: 1px solid #ff6600;
+  border: 1px solid #ae83e2;
   background: #fff;
   border-radius: 4px;
   /* color: white; */
@@ -161,8 +151,8 @@ label {
 .table-container {
   width: 90%;
   margin: auto;
+  transform: translateX(20%);
 }
-
 .header-text {
   display: flex;
   justify-content: space-between;
@@ -197,6 +187,56 @@ h2 {
 h3 {
   font-size: 18px;
   color: #eee;
+}
+
+.save-button {
+  padding: 5px 30px;
+  border: 1px solid #997bc7;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  cursor: pointer;
+  /* 추가적인 스타일을 여기에 추가할 수 있습니다 */
+}
+
+/* 페이지를 꽉 채우는 부모 요소 */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* 테이블 스타일 */
+.content2 {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+/* 테이블 헤더 스타일 */
+.content2 thead {
+  background-color: white;
+  text-align: center;
+
+}
+
+.content2 tbody td {
+    padding-top: 10px;
+    padding-bottom: 1px;
+  }
+
+  .save-button {
+  padding: 5px 20px;
+  border: 1px solid #997bc7;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  cursor: pointer;
+  /* 추가적인 스타일을 여기에 추가할 수 있습니다 */
 }
 </style>
   

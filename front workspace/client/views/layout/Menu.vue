@@ -1,30 +1,35 @@
 <template>
-  
-  <div style="margin-top: 5rem;">
-        <router-link to="/Main.page"> <h2 ><img style="margin-right: 1rem;" class="img-s" src="../../resources/image/home.png" alt=""
-        />메인</h2></router-link>
-    <div v-for="(item, index) in items" :key="index" class="m-b" style="margin-top: 3rem;">
-      <div class="local flex"><img src="../../resources/image/home.png" alt=""> pagelocation</div>
+  <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; justify-content: center;">
+    <router-link to="/">
+      <h2 style="margin-right: 100px; margin-top: 18px;"><img style="margin-right: 2rem;" class="img-s" src="../../resources/image/home.png" alt="" />메인</h2>
+    </router-link>
+
+    <div v-for="(item, index) in items" :key="index" class="m-b" style="margin-top: 1rem; margin-right: 100px; margin-top: 20px;">
       <div @click="item.showContent = !item.showContent" class="flex">
-        <div class="flex">
-          <div v-show="item.icon1"><img class="img-s" src="../../resources/image/database.png" alt=""
-        /></div>
-          <div v-show="item.icon2"><img class="img-s" src="../../resources/image/schema.png" alt=""
-        /></div>
+        <div class="flex" >
+          <div v-show="item.icon1">
+            <img class="img-s" src="../../resources/image/database.png" alt="" />
+          </div>
+          <div v-show="item.icon2">
+            <img class="img-s" src="../../resources/image/schema.png" alt="" />
+          </div>
           <h2>{{ item.title }}</h2>
         </div>
-        <span v-if="item.showContent"
-          ><img src="../../resources/image/down.png" alt=""
-        /></span>
-        <span v-else><img src="../../resources/image/up.png" alt="" /></span>
       </div>
-      <div v-show="item.showContent">
-        <router-link to="/Tableinsert.page"> <p v-show="item.content1">파일 관리</p></router-link>
-        <router-link to="/Tablelist.page"> <p v-show="item.content1">테이블 리스트</p></router-link>
-        <!-- <router-link to="/Datalist.page"> <p v-show="item.content1">데이터 목록</p></router-link> -->
-        <router-link to="/Dashboard.page"><p v-show="item.content2">대시보드</p></router-link>   
-        <router-link to="/Dashboardlist.page"><p v-show="item.content2">대시보드 목록</p></router-link>   
-        <router-link to="/Barchart.page"><p v-show="item.content2">시각화 테스트</p></router-link>
+
+      <div style="display: flex; flex-direction: row; margin-left: -30px;">
+        <router-link to="/Tableinsert.page"> 
+          <p v-show="item.content1">파일 관리</p>
+        </router-link>
+        <router-link to="/Tablelist.page"> 
+          <p v-show="item.content1" style="margin-left: -15px;">테이블 리스트</p>
+        </router-link>
+        <router-link to="/Dashboard.page"> 
+          <p v-show="item.content2">대시보드</p>
+        </router-link>   
+        <router-link to="/Dashboardlist.page"> 
+          <p v-show="item.content2" style="margin-left: -15px;">대시보드 목록</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -58,15 +63,24 @@ export default {
   },
 };
 </script>
-<style scoped>
-.local{position: absolute;     font-size: 23px;
-    top: 0;
-    left: 32rem;
-    width: 50%;}
+<style>
+.local {
+  position: absolute;
+  font-size: 23px;
+  top: 0;
+  left: 32rem;
+  width: 50%;
+  background-color: #25253D; /* 배경색 변경 */
+  color: white; /* 글자색 변경 */
+}
 
 h2 {
-  color: #000;
-  font-size: 2rem;
+  color: #ffffff;
+  font-size: 1.5rem;
 }
-p{padding: 1rem 0 0 3rem; font-size: 18px;}
+
+p {
+  padding: 1rem 0 0 3rem;
+  font-size: 18px;
+}
 </style>

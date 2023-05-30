@@ -1,59 +1,25 @@
 <template>
-  <!-- ??? 왜 있는지 모르겠음 -->
-  <div class="tab-container">
-    <!-- Tab 배경? 테두리? -->
+  <div class="tab-container" >
     <ul class="tab-list flex-end">
       <li v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === index }" @click="activeTab = index">
         {{ tab.title }}
       </li>
     </ul>
-    <!-- tab과 tab내부 만드는 기능 -->
-    <div class="tab-content">
+    <div class="tab-content" style="background-color: white;">
       <div class="flex m-b"></div>
       <div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index" class="name m-b">
-        <button @click="navigatorToVisual">시각화 목록으로 </button>
         <div v-show="tab.content3" class="content3">
           <div class="flex title">
             <h2>Bar Chart</h2>
           </div>
           <div class="flex content2 m-b">
-            <div style="width: 60%">
-              <button @click="goToy_Barchart">차트를 세로로 전환</button>
-              <canvas ref="barChart"></canvas>
-            </div>
-            <div style="width: 40%">
-              <div class="box m-b">
-                <div class="flex">
-                  <h2>ABC.Table 통계정보</h2>
-                </div>
-                <ul>
-                  <li v-for="(label, index) in data.labels" :key="label">
-                    {{ label }}: {{ sumData.datasets[0].data[index] }}
-                  </li>
-                </ul>
-              </div>
-              <div class="box">
-                <div class="flex">
-                  <h2>변수(Colunm) 선택</h2>
-                </div>
-                <div class="select">
-                  <ul>
-                    <li v-for="label in data.labels" :key="label">
-                      {{ label }}
-                      <button @click="toggleLabel(label)">
-                        {{ labelStatus[label] ? 'Off' : 'On' }}
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <div style="width: 100%;
+                        height: 100%;">
+              <canvas ref="barChart" width="100%" height="100%"></canvas>
             </div>
           </div>
-          <button @click="downloadChart">차트 저장</button>
-          <!-- Button for chart creation -->
-          <div @click="showDiv3 = !showDiv3">
-            <button @click="navigatorToTablelist">차트 만들기</button>
-          </div>
+          <button class="btn" @click="saveChartAsImage">저장하기</button>
+          <button class="btn" @click="downloadChart">차트 출력</button>
         </div>
       </div>
     </div>
@@ -61,141 +27,144 @@
 </template>
   
 <script>
-import Modal from "../main/Modal.vue";
+import { ref, inject } from 'vue';
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
+// 전역 변수로 chartId를 선언합니다.
+let chartId = 1;
 
 export default {
-  data: () => ({
-    showDiv3: false,
-    activeTab: 0,
-    tabs: [
-      {
-        title: "ABC.Table",
-        content3: "This is the content for Tab 3",
+  name: 'barchart',
+  data() {
+    return {
+      activeTab: 0,
+      tabs: [
+        {
+          title: "ABC.Table",
+          content3: "This is the content for Tab 3",
+        },
+      ],
+      id: null,
+      column: null,
+      chartData: null,
+      chartId: 0,
+      columnStatus: {},
+      options: {
+        animation: {
+          easing: 'spring'
       },
-    ],
-    // 여기부터 데이터를 받아오게 하면 될듯
-    labelStatus: {
-      'Red': true,
-      'Blue': true,
-      'Yellow': true,
-      'Green': true,
-      'Purple': true,
-      'Orange': true,
-    },
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [
-          [12, 7, 10, 10], // multiple values for 'Red'
-          [19], // single value for 'Blue'
-          [3, 6, 5], // multiple values for 'Yellow'
-          [5], // and so on...
-          [2],
-          [3],
-        ],
-        // 여기까지 데이터를 받아오게 하면 될듯
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+          indexAxis: "x",
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
-      }
+      },
+      chartInstance: null
     }
-  }),
+  },
+  created() {
+    this.id = this.$route.params.id;
+    this.column = JSON.parse(this.$route.params.column);
+    this.chartData = JSON.parse(this.$route.params.data);
+    console.log("Received column: ", this.$route.params.column);
+    console.log("Received data: ", this.$route.params.data);
+
+    console.log("Received id: ", this.id);
+    console.log("Received column: ", this.column);
+    console.log("Received data: ", this.chartData);
+    this.column.forEach(column => {
+      this.columnStatus[column] = true;
+    });
+    this.tabs[0].title = this.id;
+  },
   mounted() {
     this.createChart()
   },
-  computed: {
-    sumData() {
-      let sumData = JSON.parse(JSON.stringify(this.data));
-
-      sumData.datasets[0].data = sumData.datasets[0].data.map((dataArr) => {
-        return dataArr.reduce((acc, curr) => acc + curr, 0);
-      });
-
-      return sumData;
-    },
-    filteredData() {
-      let newData = JSON.parse(JSON.stringify(this.sumData));
-
-      newData.labels = newData.labels.filter((label, index) => {
-        return this.labelStatus[label];
-      });
-
-      newData.datasets[0].data = newData.datasets[0].data.filter((_, index) => {
-        return this.labelStatus[this.sumData.labels[index]];
-      });
-
-      return newData;
-    },
-  },
   methods: {
-    goToy_Barchart() {
-        this.$router.push('/y_Barchart.page'); // y_Barchart.vue로 이동하는 라우터 네비게이션
-      },
     createChart() {
-      this.chart = new Chart(this.$refs.barChart, {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      let chartDataset = {
+        labels: this.column,
+        datasets: this.column.map((column, index) => {
+          return {
+            label: column,
+            data: this.chartData[index],  // 'data' for chart data
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          };
+        }),
+      };
+      this.chartInstance = new Chart(this.$refs.barChart, {
         type: 'bar',
-        data: this.filteredData,
+        data: chartDataset,
         options: this.options
       });
     },
-    updateChartData() {
-      this.chart.data = this.filteredData;
-      this.chart.update();
-    },
-    toggleLabel(label) {
-      this.labelStatus[label] = !this.labelStatus[label];
-      this.updateChartData();
-    },
-    navigatorToTablelist() {
-      this.showDiv3 = true;
-      this.$router.push('/Tablelist.page');
-    },
-    navigatorToVisual() {
-      this.$router.push('/Visualization.page/${id}');
+    toggleColumn(column) {
+      this.columnStatus[column] = !this.columnStatus[column];
     },
     downloadChart() {
-  // chart.js에서 이미지 데이터를 얻습니다.
-  let imageData = this.chart.toBase64Image();
+      // chart.js에서 이미지 데이터를 얻습니다.
+      let imageData = this.chartInstance.toBase64Image();
 
-  // 새로운 a 엘리먼트를 생성하고, href 속성에 이미지 데이터를 설정합니다.
-  let dummyLink = document.createElement('a');
-  dummyLink.download = 'chart.png';
-  dummyLink.href = imageData;
-  dummyLink.dataset.downloadurl = ['image/png', dummyLink.download, dummyLink.href].join(':');
+      // 새로운 a 엘리먼트를 생성하고, href 속성에 이미지 데이터를 설정합니다.
+      let dummyLink = document.createElement('a');
 
-  // a 엘리먼트를 클릭하여 이미지를 다운로드합니다.
-  dummyLink.click();
-}
+      // 탭의 제목을 사용하여 이미지의 이름을 설정합니다.
+      dummyLink.download = this.tabs[this.activeTab].title + '.png';
 
-  }
+      dummyLink.href = imageData;
+      dummyLink.dataset.downloadurl = ['image/png', dummyLink.download, dummyLink.href].join(':');
+
+      // a 엘리먼트를 클릭하여 이미지를 다운로드합니다.
+      dummyLink.click();
+    },
+    saveChartAsImage() {
+      // chart.js에서 이미지 데이터를 얻습니다.
+      let imageData = this.chartInstance.toBase64Image();
+
+      // 로컬 스토리지에서 해당 이름의 이미지를 가져옵니다.
+      let storedImage = localStorage.getItem('chart-' + this.tabs[this.activeTab].title);
+
+      // 중복되는 이름이 있을 경우에만 이름 뒤에 _1, _2 등을 붙입니다.
+      let suffix = '';
+      let count = 1;
+      while (storedImage !== null) {
+        suffix = '_' + count;
+        storedImage = localStorage.getItem('chart-' + this.tabs[this.activeTab].title + suffix);
+        count++;
+      }
+
+      // 로컬 스토리지에 이미지를 저장합니다. 탭의 제목을 키 값에 추가합니다.
+      localStorage.setItem('chart-' + this.tabs[this.activeTab].title + suffix, imageData);
+
+      // 로그 생성: 차트 이름을 확인합니다.
+      console.log(`Chart Name: ${this.tabs[this.activeTab].title}`);
+    }
+  },
 }
 </script>
-
+  
+  
 <style scoped>
 .tab-content {
   min-height: 76rem;
@@ -226,10 +195,20 @@ h2 {
 }
 
 /* canvas {
-  max-width: 300px;
-  max-height: 300px;
-} */
+    max-width: 300px;
+    max-height: 300px;
+  } */
 .box {
   padding: 1rem;
+}
+.btn {
+  padding: 5px 20px;
+  border: 1px solid #997bc7;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  cursor: pointer;
+  /* 추가적인 스타일을 여기에 추가할 수 있습니다 */
 }
 </style>

@@ -5,7 +5,7 @@
         tab.title }}</li>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content" style="background-color: white; height: 500px;">
 
       <div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index" class="name">
         <div v-show="tab.content1">
@@ -23,11 +23,11 @@
             <div v-for="(dashboard, index) in dashboards" :key="index" class="bd inner">
               <div class="flex">
                 <p>{{ dashboard.name }}</p>
-                <button @click="navigateToDashboard(dashboard.id)">이동하기</button>
+                <button class="button-class" @click="navigateToDashboard(dashboard.id)">이동하기</button>
               </div>
             </div>
           </div>
-          <button type="submit" @click="makeToDashboard">대시보드 만들기</button>
+          <button class="save-button" type="submit" @click="makeToDashboard">대시보드 만들기</button>
 
         </div>
         <div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index">
@@ -103,5 +103,25 @@ h1 {
 
 .inner {
   padding: 1rem;
+}
+
+.save-button {
+  padding: 5px 30px;
+  border: 1px solid #997bc7;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  cursor: pointer;
+  /* 추가적인 스타일을 여기에 추가할 수 있습니다 */
+}
+
+.button-class {
+  /* 스타일을 여기에 정의합니다. */
+  background-color: #fff;
+  /* color: #333; */
+  border: 1px solid #c892f5;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>
