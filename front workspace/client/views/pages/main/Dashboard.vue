@@ -29,84 +29,85 @@
           <option value="layout9">2단(4*4) 레이아웃</option>
           <option value="layout10">3단(2*3*3) 레이아웃</option>
         </select>
-        <button class="save-button" style="margin-top: 5rem; margin-right: 10px; margin-left: 530px;" @click="downloadImage">대시보드 출력</button>
+        <button class="save-button" style="margin-top: 5rem; margin-right: 10px; margin-left: 530px;"
+          @click="downloadImage">대시보드 출력</button>
         <button class="save-button" style="margin-top: 5rem" @click="uploadImage(imageData)">대시보드 저장</button>
         <Modal :visible="modalVisible1" @close="closeModal1">
-            <div class="modal_body modal_body2">
-              <h2 style="margin-bottom: 1rem">Select chart list</h2>
-              <div class="layout layout00">
-                <div>
-                  <table style="width: 300px;">
-                    <tbody>
-                      <tr v-for="(row, index) in chartImagesChunked" :key="index">
-                        <td v-for="(imageData, subIndex) in row" :key="subIndex">
-                          <img :src="imageData" @click="onImageClick1(imageData)" alt="Chart Image" style="width: 95%;">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <div class="modal_body modal_body2 ">
+            <h2 style="margin-bottom: 1rem">Select chart list</h2>
+            <div class="layout layout00">
+              <div>
+                <table style="width: 300px;">
+                  <tbody>
+                    <tr v-for="(row, index) in chartImagesChunked" :key="index">
+                      <td v-for="(imageData, subIndex) in row" :key="subIndex">
+                        <img :src="imageData" @click="onImageClick1(imageData)" alt="Chart Image" style="width: 95%;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <button class="button" @click="closeModal1">ok</button>
             </div>
-          </Modal>
-          <Modal :visible="modalVisible2" @close="closeModal2">
-            <div class="modal_body modal_body2">
-              <h2 style="margin-bottom: 1rem">Select chart list</h2>
-              <div class="layout layout00">
-                <div>
-                  <table style="width: 300px;">
-                    <tbody>
-                      <tr v-for="(row, index) in chartImagesChunked" :key="index">
-                        <td v-for="(imageData, subIndex) in row" :key="subIndex">
-                          <img :src="imageData" @click="onImageClick2(imageData)" alt="Chart Image" style="width: 95%;">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+            <button class="button" @click="closeModal1">ok</button>
+          </div>
+        </Modal>
+        <Modal :visible="modalVisible2" @close="closeModal2">
+          <div class="modal_body modal_body2">
+            <h2 style="margin-bottom: 1rem">Select chart list</h2>
+            <div class="layout layout00">
+              <div>
+                <table style="width: 300px;">
+                  <tbody>
+                    <tr v-for="(row, index) in chartImagesChunked" :key="index">
+                      <td v-for="(imageData, subIndex) in row" :key="subIndex">
+                        <img :src="imageData" @click="onImageClick2(imageData)" alt="Chart Image" style="width: 95%;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <button class="button" @click="closeModal2">ok</button>
             </div>
-          </Modal>
-          <Modal :visible="modalVisible3" @close="closeModal3">
-            <div class="modal_body modal_body2">
-              <h2 style="margin-bottom: 1rem">Select chart list</h2>
-              <div class="layout layout00">
-                <div>
-                  <table style="width: 300px;">
-                    <tbody>
-                      <tr v-for="(row, index) in chartImagesChunked" :key="index">
-                        <td v-for="(imageData, subIndex) in row" :key="subIndex">
-                          <img :src="imageData" @click="onImageClick3(imageData)" alt="Chart Image" style="width: 95%;">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+            <button class="button" @click="closeModal2">ok</button>
+          </div>
+        </Modal>
+        <Modal :visible="modalVisible3" @close="closeModal3">
+          <div class="modal_body modal_body2">
+            <h2 style="margin-bottom: 1rem">Select chart list</h2>
+            <div class="layout layout00">
+              <div>
+                <table style="width: 300px;">
+                  <tbody>
+                    <tr v-for="(row, index) in chartImagesChunked" :key="index">
+                      <td v-for="(imageData, subIndex) in row" :key="subIndex">
+                        <img :src="imageData" @click="onImageClick3(imageData)" alt="Chart Image" style="width: 95%;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <button class="button" @click="closeModal3">ok</button>
             </div>
-          </Modal>
-          <Modal :visible="modalVisible4" @close="closeModal4">
-            <div class="modal_body modal_body2">
-              <h2 style="margin-bottom: 1rem">Select chart list</h2>
-              <div class="layout layout00">
-                <div>
-                  <table style="width: 300px;">
-                    <tbody>
-                      <tr v-for="(row, index) in chartImagesChunked" :key="index">
-                        <td v-for="(imageData, subIndex) in row" :key="subIndex">
-                          <img :src="imageData" @click="onImageClick4(imageData)" alt="Chart Image" style="width: 95%;">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+            <button class="button" @click="closeModal3">ok</button>
+          </div>
+        </Modal>
+        <Modal :visible="modalVisible4" @close="closeModal4">
+          <div class="modal_body modal_body2" >
+            <h2 style="margin-bottom: 1rem">Select chart list</h2>
+            <div class="layout layout00">
+              <div>
+                <table style="width: 300px;">
+                  <tbody>
+                    <tr v-for="(row, index) in chartImagesChunked" :key="index">
+                      <td v-for="(imageData, subIndex) in row" :key="subIndex">
+                        <img :src="imageData" @click="onImageClick4(imageData)" alt="Chart Image" style="width: 95%;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <button class="button" @click="closeModal4">ok</button>
             </div>
-          </Modal>
+            <button class="button" @click="closeModal4">ok</button>
+          </div>
+        </Modal>
         <div v-if="selectedLayout === 'layout1'" class="layout layout1">
           <div class="col3"></div>
           <div></div>
@@ -114,20 +115,21 @@
           <div></div>
         </div>
         <div ref="layoutRef" v-else-if="selectedLayout === 'layout2'" class="layout layout2" style="margin-top: 15px;">
-          <div :style="{ backgroundImage: 'url(' + selectedImage1 + ')', backgroundSize: '95%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }" @click="ShowModal1"> </div>
-          <div :style="{ backgroundImage: 'url(' + selectedImage2 + ')', backgroundSize: '95%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }" @click="ShowModal2"> </div>
-          <div :style="{ backgroundImage: 'url(' + selectedImage3 + ')', backgroundSize: '95%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }" @click="ShowModal3"> </div>
-          <div :style="{ backgroundImage: 'url(' + selectedImage4 + ')', backgroundSize: '95%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }" @click="ShowModal4"> </div>
-        
+          <div
+            :style="{ backgroundImage: 'url(' + selectedImage1 + ')', backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }"
+            @click="ShowModal1"> </div>
+          <div
+            :style="{ backgroundImage: 'url(' + selectedImage2 + ')', backgroundSize:  '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }"
+            @click="ShowModal2"> </div>
+          <div
+            :style="{ backgroundImage: 'url(' + selectedImage3 + ')', backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }"
+            @click="ShowModal3"> </div>
+          <div
+            :style="{ backgroundImage: 'url(' + selectedImage4 + ')', backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }"
+            @click="ShowModal4"> </div>
+
         </div>
         <div v-else-if="selectedLayout === 'layout3'" class="layout " style="margin-top: 15px;">
-            <!-- <div class="chart" @click="showDiv4 = !showDiv4">
-            차트 있는경우
-            <div v-show="showDiv4" class="changebox">
-              <button class="m-r">삭제하기</button>
-              <button @click="ShowModal1">변경하기</button>
-            </div>
-          </div> -->
           <div class="layout2 layout" style="background: none;">
             <div></div>
             <div></div>
@@ -225,7 +227,7 @@ import axios from 'axios';
 const imageData = ref(null);
 const chartIds = ref([]);
 const chartImages = ref([]);
-const chartData = ref({});  
+const chartData = ref({});
 const selectedLayout = ref("layout2");
 const activeTab = ref(0);
 const modalVisible1 = ref(false);
@@ -239,10 +241,10 @@ const selectedImage4 = ref(null);
 const layoutRef = ref(null);
 const showDiv4 = ref(false);
 const tabs = ref([
-    {
-      title: "Make DashBoard",
-      content: "This is Make a DashBoard"
-    },
+  {
+    title: "Make DashBoard",
+    content: "This is Make a DashBoard"
+  },
 ]);
 
 function onImageClick1(imageData) {
@@ -325,7 +327,7 @@ async function downloadImage() {
     console.log('The layout is not set to layout2');
     return;
   }
-  
+
   if (layoutRef.value) {
     html2canvas(layoutRef.value).then((canvas) => {
       let link = document.createElement('a');
@@ -350,38 +352,38 @@ async function uploadImage(imageData) {
     var byteArrays = [];
 
     for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-        var slice = byteChars.slice(offset, offset + sliceSize);
+      var slice = byteChars.slice(offset, offset + sliceSize);
 
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
 
-        var byteArray = new Uint8Array(byteNumbers);
+      var byteArray = new Uint8Array(byteNumbers);
 
-        byteArrays.push(byteArray);
+      byteArrays.push(byteArray);
     }
 
-    const a =  new Blob(byteArrays, {type: mime});
+    const a = new Blob(byteArrays, { type: mime });
 
     console.log(a);
 
 
-    formData.append("image",a);
+    formData.append("image", a);
 
     const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
     };
 
     console.log(formData);
-    
-//    주석 해제하여 이미지 업로드 요청 실행
-    axios.post('/upload',formData,config)
-    .then(response => console.log(response.data))
-    .catch(error => console.error(error));
-    
+
+    //    주석 해제하여 이미지 업로드 요청 실행
+    axios.post('/upload', formData, config)
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
+
   } catch (error) {
     console.error(error);
   }
@@ -426,6 +428,10 @@ onMounted(() => {
   background-color: #fff;
 }
 
+.layout{
+  height: 800px;
+}
+
 .modal_body {
   text-align: center;
   width: 24rem;
@@ -435,6 +441,7 @@ onMounted(() => {
 .modal_body2 {
   width: 49rem !important;
   background: transparent;
+  background-color: white; width: 400px; height: 300px;
 }
 
 .modal {
@@ -469,6 +476,7 @@ h2 {
   color: #333;
   font-size: 20px;
 }
+
 .save-button {
   padding: 5px 30px;
   border: 1px solid #997bc7;
@@ -479,4 +487,5 @@ h2 {
   cursor: pointer;
   /* 추가적인 스타일을 여기에 추가할 수 있습니다 */
 }
+
 </style>

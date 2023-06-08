@@ -1,12 +1,7 @@
 <template>
   <div class="tab-container">
     <ul class="tab-list flex-end">
-      <li
-        v-for="(tab, index) in tabs"
-        :key="index"
-        :class="{ active: activeTab === index }"
-        @click="activeTab = index"
-      >
+      <li v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === index }" @click="activeTab = index">
         {{ tab.title }}
       </li>
     </ul>
@@ -26,75 +21,45 @@
           <button @click="clearLocalStorage">차트 전부 삭제</button> -->
         </div>
       </div>
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        v-show="activeTab === index"
-        class="name m-b"
-      >
+      <div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index" class="name m-b">
         {{ tab.content }}
       </div>
 
-      <div
-        class="layout"
-        style="
+      <div class="layout" style="
           width: 100%;
           height: 700px;
           overflow: auto;
           background-color: white;
-        "
-      >
+        ">
         <!-- 모든 차트리스트 생성 -->
         <div>
-          <table
-            style="width: 100%; background-color: white; table-layout: fixed"
-          >
+          <table style="width: 100%; background-color: white; table-layout: fixed">
             <tbody style="background-color: white">
               <tr v-for="(row, rowIndex) in chartImagesChunked" :key="rowIndex">
-                <td
-                  v-for="(imageData, subIndex) in row"
-                  :key="subIndex"
-                  style="padding: 10px"
-                >
-                  <div
-                    style="
+                <td v-for="(imageData, subIndex) in row" :key="subIndex" style="padding: 10px">
+                  <div style="
                       width: 100%;
                       height: 300px;
                       padding: 10px;
                       border: 1px solid blue;
                       border-radius: 10px;
                       background-color: white;
-                    "
-                  >
-                    <div
-                      v-if="rowIndex === 0 && subIndex === 0"
-                      style="
-                        background-color: white;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                      "
-                    >
-                      <p>현재 저장된 차트 수: {{ chartImagesCount }}</p>
+                    ">
+                    <div v-if="rowIndex === 0 && subIndex === 0" style=" background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; ">
+                      <p style="margin-bottom: 30px;">현재 저장된 차트 수: {{ chartImagesCount }}</p>
                       <button class="clear-button" @click="clearLocalStorage">
                         차트 전부 삭제
                       </button>
                     </div>
-                    <div
-                      v-else
-                      style="width: 100%; height: 100%; background-color: white"
-                    >
+
+                    <div v-else style="width: 100%; height: 100%; background-color: white">
                       <p>{{ imageData.key }}</p>
-                      <img
-                        :src="imageData.image"
-                        alt="Chart Image"
-                        style="
+                      <img :src="imageData.image" alt="Chart Image" style="
                           width: 100%;
                           height: 90%;
                           padding: 10px;
                           border-radius: 10px;
-                        "
-                      />
+                        " />
                     </div>
                   </div>
                 </td>

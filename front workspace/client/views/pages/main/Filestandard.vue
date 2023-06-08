@@ -72,8 +72,12 @@ export default {
       showTypeSelect: false,
       fileNames: [],
       columns: [
-        { name: "Column 1", type: "Number" },
+      { name: "Column 1", type: "Number" },
         { name: "Column 2", type: "Number" },
+        { name: "Column 3", type: "Number" },
+        { name: "Column 4", type: "Number" },
+        { name: "Column 5", type: "Number" },
+        { name: "Column 6", type: "Number" },
       ], // Fill this array with your column data (name and type)
       tabs: [
         {

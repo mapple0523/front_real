@@ -4,6 +4,7 @@ const BASE_DIR = __dirname;
 const LOG_BASE_DIR = `${__dirname}/server/logs`;
 const SERVICE_STATUS = process.env.NODE_ENV;//development, production
 const PORT = 8001;
+// 일치
 const API_SERVER_HOST = 'localhost:80';
 
 module.exports = {
